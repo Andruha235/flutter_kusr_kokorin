@@ -1,3 +1,5 @@
+![alt text](assets/images/img.png)
+
 # flutter_kusr_kokorin
 
 A new Flutter project.
