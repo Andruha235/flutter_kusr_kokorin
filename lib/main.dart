@@ -13,22 +13,15 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Weather',
-            style: TextStyle(color: Colors.black87),
+            'Weather Forecast',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-          ),
-          iconTheme: IconThemeData(color: Colors.black54),
-          brightness: Brightness.light,
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
-          ],
+          backgroundColor: Colors.red[300],
+          elevation: 0,
         ),
         body: _buildBody(),
+        backgroundColor: Colors.red[300],
       ),
     );
   }
@@ -38,122 +31,315 @@ Widget _buildBody() {
   return SingleChildScrollView(
     child: Column(
       children: [
-        _headerImage(),
+        TextField(
+          decoration: InputDecoration(
+            hintText: 'Enter City Name',
+            hintStyle: TextStyle(color: Colors.white),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            border: InputBorder.none,
+          ),
+        ),
         SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _weatherDescription(),
-                  Divider(),
-                  _temperature(),
-                  Divider(),
-                  _temperatureForecast(),
-                  Divider(),
-                  _footerRaitings(),
-                ],
-              ),
-            )),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _CityDetails(),
+              Padding(padding: EdgeInsets.all(20)),
+              _TemperatureDetail(),
+              Padding(padding: EdgeInsets.all(20)),
+              _ExtraWeatherDetail(),
+              Padding(padding: EdgeInsets.all(30 )),
+              Text('7-DAY WEATHER FORECAST', style: TextStyle(color: Colors.white, fontSize: 18),),
+              Padding(padding: EdgeInsets.all(10)),
+              _temperatureForecast(),
+            ],
+          ),
+        ))
       ],
     ),
   );
 }
 
-Image _headerImage() {
-  return Image(
-    image: AssetImage('assets/images/1646999942_5.jpg'),
-    fit: BoxFit.cover,
-  );
-}
-
-Column _weatherDescription() {
+Column _CityDetails() {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Text(
-        'Tuesday - May 22',
-        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        'Murmansk Oblast, RU',
+        style: TextStyle(fontSize: 32, color: Colors.white),
       ),
-      Divider(),
+      Padding(
+        padding: EdgeInsets.all(10),
+      ),
       Text(
-        'Сегодня- +20..+25°; слабый дождь начнётся около 23-00; штиль. На этой неделе почти без осадков; похолодает до +23°; слабый ветер до 4 м/с',
-        style: TextStyle(color: Colors.black54),
+        'Friday, Mar 20, 2020',
+        style: TextStyle(fontSize: 17, color: Colors.white),
       ),
     ],
   );
 }
 
-Row _temperature() {
+Row _TemperatureDetail() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(
+        Icons.wb_sunny,
+        size: 70,
+        color: Colors.white,
+      ),
+      Padding(padding: EdgeInsets.all(5)),
+      Column(
+        children: [
+          Text(
+            '14 °F',
+            style: TextStyle(fontSize: 32, color: Colors.white),
+          ),
+          Padding(padding: EdgeInsets.all(5)),
+          Text(
+            'LIGHT SNOW',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          )
+        ],
+      ),
+    ],
+  );
+}
+
+Row _ExtraWeatherDetail() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.wb_sunny, color: Colors.yellow,),
+          Icon(
+            Icons.ac_unit,
+            color: Colors.white,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            '5',
+            style: TextStyle(color: Colors.white, fontSize: 17),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'km/hr',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ],
       ),
-      SizedBox(width: 16,),
+      SizedBox(
+        width: 78,
+      ),
       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Text('15° Солнечно', style: TextStyle(color: Colors.deepPurple),),
-            ],
+          Icon(
+            Icons.ac_unit,
+            color: Colors.white,
           ),
-          Row(
-            children: [
-              Text('Москва, обручевский район', style: TextStyle(color: Colors.grey),),
-            ],
-          )
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            '3',
+            style: TextStyle(color: Colors.white, fontSize: 17),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            '%',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
         ],
-      )
-    ],
-  );
-}
-
-Wrap _temperatureForecast(){
-  return Wrap(
-    spacing: 10,
-    children:
-      List.generate(7, (int index){
-        return Chip(
-            label: Text(
-              '${index + 20}°C',
-              style: TextStyle(fontSize: 15),
-            ),
-          avatar: Icon(
-            Icons.wb_cloudy,
-            color: Colors.blue.shade300,
+      ),
+      SizedBox(
+        width: 78,
+      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.ac_unit,
+            color: Colors.white,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
-            side: BorderSide(color: Colors.grey),
+          SizedBox(
+            height: 5,
           ),
-          backgroundColor: Colors.grey.shade100,
-        );
-      }),
-  );
-}
-
-
-Row _footerRaitings() {
-  var stars = Row(
-    children: [
-      Icon(Icons.star, size: 15,color: Colors.yellow[600],),
-      Icon(Icons.star, size: 15,color: Colors.yellow[600],),
-      Icon(Icons.star, size: 15,color: Colors.yellow[600],),
-      Icon(Icons.star, size: 15,color: Colors.black,),
-      Icon(Icons.star, size: 15,color: Colors.black,),
-    ],
-  );
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      Text('Info with yandex.ru/pogoda',style: TextStyle(fontSize: 15),),
-      stars
+          Text(
+            '20',
+            style: TextStyle(color: Colors.white, fontSize: 17),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            '%',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+        ],
+      ),
     ],
   );
 }
+
+Container _temperatureForecast() {
+  return Container(
+    height: 110,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Friday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('6 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_sunny, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Saturday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('5 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_cloudy, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Sunday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('22 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_sunny, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Monday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('13 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_cloudy, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Tuesdady', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('15 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_sunny, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Wendnesday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('11 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_sunny, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          width: 150,
+          color: Colors.white.withOpacity(0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Thursday', style: TextStyle(color: Colors.white, fontSize: 24),),
+              SizedBox(height: 12,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('99 °F', style: TextStyle(color: Colors.white, fontSize: 27),),
+                  SizedBox(width: 8,),
+                  Icon(Icons.wb_sunny, color: Colors.white, size: 35,)
+                ],
+              )
+            ],
+          ),
+        ),
+        SizedBox(width: 10,),
+      ],
+    ),
+  );
+}
+

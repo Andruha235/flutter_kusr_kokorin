@@ -1,4 +1,5 @@
 ![alt text](assets/images/img.png)
+![alt text](assets/images/img_1.png)
 
 # flutter_kusr_kokorin
 
